@@ -31,3 +31,23 @@ jobs:
         run: |
           source env/bin/activate
           pytest
+  frontend:
+    name: Frontend Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Dependencies
+        run: npm install
+        working-directory: frontend  # Adjust if your frontend folder is named differently
+
+      - name: Run Tests
+        run: npm test -- --watchAll=false
+        working-directory: frontend
